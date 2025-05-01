@@ -13,7 +13,7 @@ router.get("/", async (req, res) => {
 });
 
 // authors/author?id=value
-router.post("/author", async (req, res) => {
+router.get("/author", async (req, res) => {
   try {
     const { id } = req.query;
     if (!id) {
@@ -99,3 +99,4 @@ router.post("/author/logout", async (req, res) => {
 });
 
 module.exports = router;
+

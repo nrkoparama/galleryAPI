@@ -50,7 +50,7 @@ router.put("/category/update", async (req, res) => {
     const body = req.body;
 
     const { name, description, status } = body;
-    if ((!id, !name || !description || !status)) {
+    if ((!id|| !name || !description || !status)) {
       return res.status(400).json({
         status: 401,
         message: "Thiếu thông tin bắt buộc",
