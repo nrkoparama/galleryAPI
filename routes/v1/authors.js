@@ -44,8 +44,9 @@ router.post("/author/register", async (req, res) => {
 
 router.post("/author/login", async (req, res) => {
   try {
-    const { email, password } = req.body;
-    if (!email || !password ) {
+    const body = req.body;
+    const { email, password } = body;
+    if (!email || !password) {
       return res.status(401).json({ status: 401, message: "Thiếu dữ liệu" });
     }
     const result = await authorController.login(body);
