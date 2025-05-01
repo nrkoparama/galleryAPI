@@ -53,3 +53,5 @@ router.put("/contact/update", async (req, res) => {
     return res.status(500).json({ message: "Lỗi server" });
   }
 });
+
+module.exports = router;
