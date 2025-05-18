@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const authorController = require("../../mongo/controllers/author.controller");
 
-router.get("/", async (res) => {
+router.get("/", async (req, res) => {
     try {
         const result = await authorController.getAllAuthors();
         return res.status(result.status).json(result);
