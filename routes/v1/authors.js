@@ -12,6 +12,20 @@ router.get("/", async (res) => {
     }
 });
 
+router.post("/", async (req, res) => {
+    try {
+        const {email} = req.body;
+        if (!email) {
+            return res.status(401).json({status: 401, message: "Thiếu dữ liệu"});
+        }
+        const result = await authorController.getAuthorByEmail(email);
+        return res.status(result.status).json(result);
+    } catch (error) {
+        console.error("Lỗi server:", error);
+        return res.status(500).json({status: 500, message: "Lỗi server"});
+    }
+});
+
 // authors/author?id=value
 router.get("/author", async (req, res) => {
     try {
@@ -20,20 +34,6 @@ router.get("/author", async (req, res) => {
             return res.status(401).json({status: 401, message: "Thiếu dữ liệu"});
         }
         const result = await authorController.getAuthorById(id);
-        return res.status(result.status).json(result);
-    } catch (error) {
-        console.error("Lỗi server:", error);
-        return res.status(500).json({status: 500, message: "Lỗi server"});
-    }
-});
-
-router.post("/", async (req, res) => {
-    try {
-        const {email} = req.body;
-        if (!email) {
-            return res.status(401).json({status: 401, message: "Thiếu dữ liệu"});
-        }
-        const result = await authorController.getAuthorById(email);
         return res.status(result.status).json(result);
     } catch (error) {
         console.error("Lỗi server:", error);
