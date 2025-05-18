@@ -40,8 +40,10 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(() => console.log(">>> Kết nối MongoDB Cloud thành công"))
-  .catch((error) => console.log(">>> Kết nối MongoDB Cloud thất bại", error));
+  .then(() => console.log(">>> Kết nối database Gallery thành công"))
+  .catch((error) =>
+    console.log(">>> Kết nối database Gallery thất bại", error)
+  );
 
 app.use("/api/v1/", indexRouter);
 app.use("/api/v1/authors", authorsRouter);
