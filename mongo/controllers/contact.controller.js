@@ -34,14 +34,18 @@ async function getContactById(id) {
 async function createContact(body) {
   try {
     const { facebook, instagram, x, linkedIn } = body;
-    const newContact = new contactSchema({
+    let newContact = new contactSchema({
       facebook,
       instagram,
       x,
       linkedIn,
     });
-    await newContact.save();
-    return { status: 200, message: "Tạo liên hệ thành công" };
+    newContact = await newContact.save();
+    return {
+      status: 200,
+      message: "Tạo liên hệ thành công",
+      contact_id: newContact._id,
+    };
   } catch (error) {
     console.error("Lỗi tạo contact:", error);
     return { status: 500, message: "Tạo liên hệ thất bại" };

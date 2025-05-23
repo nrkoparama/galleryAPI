@@ -19,9 +19,9 @@ const authorSchema = new Schema(
       // match: /^[A-Z](?=.*\d)(?=.*[@$!%*?&]).{7,}$/, // mật khẩu phải có ít nhất 8 ký tự, bao gồm chữ hoa, số và ký tự đặc biệt
       required: true,
     },
-    image: { type: String, required: false, default: "default-user" },
-    email_verified: { type: Boolean, required: false, default: true },
-    isThirdParty: { type: Boolean, required: false, default: false },
+    image: { type: String, default: "default-user" },
+    email_verified: { type: Boolean, required: true, default: true },
+    isThirdParty: { type: Boolean, require: true, default: false },
     contact_ref: { type: ObjectId, ref: "contact", required: true },
     role: { type: Number, enum: AUTHOR_ROLES, required: true, default: 0 },
     status: { type: Number, enum: STATUS_ROLES, required: true, default: 1 },
