@@ -33,3 +33,5 @@ pids
 
 # Optional: nếu dùng testing
 coverage/
+
+config/

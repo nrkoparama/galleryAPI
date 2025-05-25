@@ -51,6 +51,7 @@ async function register(body) {
         if (existingAuthor) {
             return {status: 409, message: "Địa chỉ email đã được sử dụng",};
         }
+
         const salt = bcrypt.genSaltSync(10);
         const hashedPassword = bcrypt.hashSync(password, salt);
 
