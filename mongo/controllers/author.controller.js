@@ -1,7 +1,7 @@
 const authorModel = require("../models/author.model");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const config = require("../../config");
+const config = require("../../config/config.env");
 module.exports = {
     getAllAuthors, getAuthorById, getAuthorByEmail, register, login, thirdPartyLogin, updateAuthor,
 };
