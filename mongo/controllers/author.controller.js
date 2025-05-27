@@ -1,7 +1,8 @@
 const authorModel = require("../models/author.model");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const config = require("../../config/config.env");
+const config = require("../../config/env");
+const {decode} = require("../../utils/base64Url")
 module.exports = {
     getAllAuthors, getAuthorById, getAuthorByEmail, register, login, thirdPartyLogin, updateAuthor,
 };
@@ -18,6 +19,9 @@ async function getAllAuthors() {
 
 async function getAuthorById(id) {
     try {
+        if (!id) {
+            return {status: 401, message: "Gửi thiếu dữ liệu"}
+        }
         const author = await authorModel.findById(id).populate("contact_ref");
         if (!author) {
             return {status: 404, message: "Không tìm thấy tác giả"};
@@ -26,14 +30,18 @@ async function getAuthorById(id) {
             status: 200, message: "Lấy dữ liệu thành công", data: author,
         };
     } catch (error) {
-        console.log("Lỗi khi lấy dữ liệu:", error);
+        console.log("Lỗi lấy dữ liệu:", error);
         return {status: 500, message: "Lỗi lấy dữ liệu"};
     }
 }
 
 async function getAuthorByEmail(email) {
     try {
-        const author = await authorModel.findOne({email});
+        if (!email) {
+            return {status: 401, message: "Gửi thiếu dữ liệu"}
+        }
+        const emailDecoded = decode(email);
+        const author = await authorModel.findOne({email: emailDecoded});
         if (!author) {
             return {status: 404, message: `Không tìm thấy tác giả`}
         }
@@ -55,13 +63,13 @@ async function register(body) {
         const salt = bcrypt.genSaltSync(10);
         const hashedPassword = bcrypt.hashSync(password, salt);
 
-        const author = new authorModel({...body, password: hashedPassword,});
+        const author = new authorModel({...body, password: hashedPassword});
         await author.save();
 
         return {status: 200, message: "Đăng ký tài khoản thành công"};
     } catch (error) {
-        console.log("Lỗi khi tạo tài khoản:", error);
-        return {status: 500, message: "Lỗi khi tạo tài khoản"};
+        console.log("Lỗi tạo tài khoản:", error);
+        return {status: 500, message: "Lỗi tạo tài khoản"};
     }
 }
 

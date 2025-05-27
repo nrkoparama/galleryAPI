@@ -5,7 +5,7 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const config = require("./config/config.env");
+const config = require("./config/env");
 
 
 var indexRouter = require("./routes/v1/index");
